@@ -1,5 +1,8 @@
+import 'package:blogapp/blogs/login.dart';
 import 'package:blogapp/blogs/newuser.dart';
+import 'package:blogapp/services/blogapiser.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class blog extends StatefulWidget {
   const blog({super.key});
@@ -13,7 +16,28 @@ class _blogState extends State<blog> {
   TextEditingController n2=new TextEditingController();
   void login()async
   {
+final response=await blogapiser().login(n1.text
+    , n2.text);
+if(response["status"] == "Success")
+  {
+    String userId=response["userdata"]["_id"].toString();
 
+    print("Success"+userId);
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    preferences.setString("userId",userId);
+    print("Success"+userId);
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>login()));
+
+  }else if(response["status"]=="invalid emailid")
+    {
+      print("invalid emailid");
+
+    }
+else
+  {
+    print("error");
+
+  }
   }
   @override
   Widget build(BuildContext context) {

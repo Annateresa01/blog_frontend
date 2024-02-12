@@ -1,4 +1,6 @@
+import 'package:blogapp/blogs/login.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class post extends StatefulWidget {
   const post({super.key});
@@ -8,6 +10,13 @@ class post extends StatefulWidget {
 }
 
 class _postState extends State<post> {
+  TextEditingController m1=new TextEditingController();
+  
+   void addpost()async{
+    SharedPreferences prefer=await SharedPreferences.getInstance();
+    prefer.getString("userId");
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>login()));
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,14 +25,13 @@ class _postState extends State<post> {
           child: Column(
             children: [
               SizedBox(height: 30,),
-              TextField(decoration: InputDecoration(
+              TextField(
+                controller: m1,
+                decoration: InputDecoration(
                 border: OutlineInputBorder()
               ),),
               SizedBox(height: 30,),
-              ElevatedButton(onPressed: ()
-              {
-
-              }, child: Text("POST")),
+              ElevatedButton(onPressed: addpost, child: Text("POST")),
             ],
           ),
         ),

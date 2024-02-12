@@ -1,3 +1,4 @@
+import 'package:blogapp/blogs/post.dart';
 import 'package:flutter/material.dart';
 
 class login extends StatefulWidget {
@@ -19,7 +20,7 @@ class _loginState extends State<login> {
               SizedBox(height: 30,),
               ElevatedButton(onPressed: ()
                   {
-
+Navigator.push(context, MaterialPageRoute(builder: (context)=>post()));
                   }, child: Text("ADD POST")),
               SizedBox(height: 30,),
               ElevatedButton(onPressed: ()
